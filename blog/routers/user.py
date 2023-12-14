@@ -19,7 +19,7 @@ async def getAll(db :Session = Depends(database.get_db),get_current_user : schem
     return user.getAll(db);
 
 @router.post ('/',response_model= schemas.showUser,status_code=status.HTTP_201_CREATED )
-async def create_user (request :schemas.UserForm,db :Session = Depends(get_db)):
+async def create_user (request :schemas.UserForm,db :Session = Depends(get_db),get_current_user : schemas.User = Depends(oauth2.get_current_user)):
     return user.create(request,db )
 
 @router.get('/{id}',response_model= schemas.showUser)
