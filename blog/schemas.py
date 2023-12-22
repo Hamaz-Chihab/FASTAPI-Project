@@ -29,8 +29,7 @@ class Admin(BaseModel):
     email: str
     hashed_password :str
     created_at: datetime
-
-
+ 
 class User(BaseModel):
    name: str
    email: str

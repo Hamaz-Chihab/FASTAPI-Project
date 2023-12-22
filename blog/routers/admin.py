@@ -10,13 +10,15 @@ router =APIRouter(
     tags=["Admin"])
 get_db = database.get_db
 
+@router.post('/',status_code=status.HTTP_201_CREATED )
+async def create_admin(request  :schemas.Admin,db :Session = Depends(get_db)):
+    return admin.create(request,db)
+
+
 @router.get('/',response_model= List[schemas.showAdmin] )
 async def getAll(db :Session = Depends(get_db)):
     return admin.getAll(db);
 
-@router.post('/',status_code=status.HTTP_201_CREATED )
-async def create_admin(request  :schemas.Admin,db :Session = Depends(get_db)):
-    return admin.create(request,db)
 
 @router.get('/{id},',response_model= schemas.showAdmin)
 # async def getById(id :int , nom : str | None = Query(default=None, max_length=50) ,prenom :Annotated[list[str], Query()] = ["foo", "bar"] ,db :Session = Depends(get_db)):
